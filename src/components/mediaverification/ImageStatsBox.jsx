@@ -1,11 +1,15 @@
 const ImageStatsBox = (
-    {stats}
+    {
+        stats,
+        facesDetected = 0
+    }
 ) => {
     return (
         <section>
             <strong>Brillo:</strong>{stats.brightness} &nbsp;
             <strong>Contraste:</strong>{stats.contrast} &nbsp;
-            <strong>Validado:</strong> {stats.isBlank?'NO' :'OK'} &nbsp;
+            <strong>Rostros:</strong>{facesDetected} &nbsp;
+            <strong>Validado:</strong> {(!stats.isBlank && (facesDetected == 1))?'OK':'NO'} &nbsp;
         </section>
     );
 }

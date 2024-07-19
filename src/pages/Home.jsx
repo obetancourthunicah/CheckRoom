@@ -1,4 +1,5 @@
 import VerifyHolder from '../components/mediaverification/VerifyHolder';
+import VerifyMicro from '../components/microphoneVerification/MicrophoneVerification';
 
 import VerifyVideo from '../components/mediaverification/VerifyVideo';
 const Home = ()=> {
@@ -7,7 +8,7 @@ const Home = ()=> {
             <VerifyHolder
                 verifiers={[
                     (<VerifyVideo key="verifyVidieo"/>),
-                    (<div key="microphone">Microphone</div>),
+                    (<VerifyMicro key="microphone" />),
                     (<div key="accesstoint">Access To Internet</div>)
                 ]}
             />

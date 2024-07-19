@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { isMediaCaptureSupported } from "../navigatorService/isMediaCaptureSupported";
 const useVerifyVideo = ()=> {
     const [supported, setSupported] = useState(false);
     const [localMediaStream, setLocalMediaStream] = useState(null);
@@ -48,7 +49,7 @@ const getImageStats = (data) => {
 }
 
 const isImageBlank = (brightness, contrast) => {
-    return brightness < 70 || brightness > 170 || contrast < 0.5;
+    return brightness < 70 || brightness > 170 || contrast < 50;
 }
 
 const getImageBrightness = (imageData) => {
@@ -69,7 +70,7 @@ const getImageBrightness = (imageData) => {
         ]);
         totalLight += hsp;
     }
-    return {brightness: totalLight / imagePixels.length, imagePixels};
+    return {brightness: Math.round((totalLight / imagePixels.length)*100)/100, imagePixels};
 }
 
 const getImageContrast = (imageData) => {
@@ -80,7 +81,7 @@ const getImageContrast = (imageData) => {
         if (hsp > maxLuminance) maxLuminance = hsp;
         if (hsp < minLuminance) minLuminance = hsp;
     });
-    const contrast = (maxLuminance - minLuminance) / (maxLuminance + minLuminance);
+    const contrast = Math.round(((maxLuminance - minLuminance) / (maxLuminance + minLuminance))*10000)/100;
     return contrast;
 }
 
@@ -104,10 +105,6 @@ export const captureImageFromVideo = (videoElement) => {
     const ctx = canvas.getContext('2d');
     ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
     return ctx.getImageData(0, 0, canvas.width, canvas.height);
-}
-
-const isMediaCaptureSupported = ()=> {
-    return navigator.mediaDevices?.getUserMedia && true;
 }
 
 function getCanvasImgData(imageData) {

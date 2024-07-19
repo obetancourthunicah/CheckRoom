@@ -11,7 +11,7 @@ export const BoundingBox = ({ detectedItem }) => {
     // console.log(detectedItem);
     return (
         <div style={styleValue}>
-            <span>{detectedItem.categories[0].score}</span>
+            <span>{Math.round(detectedItem.categories[0].score * 100)/100}</span>
         </div>
     );
 };

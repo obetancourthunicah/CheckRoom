@@ -28,7 +28,7 @@ const VerifyVideo = () => {
     }, [supported, videoSrc, videoRef, timerIdRef, setImageStats]);
     return (
         <section className="verifier">
-            <strong>Verificando Video</strong>
+            <h1>Verificando Video</h1>
             {supported && (
                 <>
                     <section style={{ position: 'relative'}}>
@@ -37,7 +37,7 @@ const VerifyVideo = () => {
                         ))}
                         <video ref={videoRef}/>
                     </section>
-                    {imageStats && <ImageStatsBox stats={imageStats} />}
+                    {imageStats && <ImageStatsBox stats={imageStats} facesDetected={detections.length} />}
                 </>
             )
             }
