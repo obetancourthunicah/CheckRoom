@@ -2,7 +2,6 @@ const SoundVisualizer = ({ timeDomainArray = [], width = 300, height = 260 }) =>
     const nodeWidth = (width / timeDomainArray.length);
     const circles = [...timeDomainArray].map((value, index) => {
         const nodeHeight =  (Math.pow(128.0 - value, 2)) / 256  * height;  //(value/256.0)*height;
-        console.log(nodeHeight);
         return (
             <rect
                             key={index}

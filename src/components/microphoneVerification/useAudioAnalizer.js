@@ -12,11 +12,14 @@ const useAudioAnalizer = () => {
                 const audioCtx = new AudioContext();
                 const source = audioCtx.createMediaStreamSource(audioRef);
                 const analyser = audioCtx.createAnalyser();
-                // analyser.minDecibels = -90;
-                // analyser.maxDecibels = -10;
-                analyser.smoothingTimeConstant = 1;
+                const gain = audioCtx.createGain();
+                gain.gain.setValueAtTime(0, audioCtx.currentTime);
+                //analyser.smoothingTimeConstant = 1;
+                //compressor.connect(audioCtx.destination)
+                analyser.connect(gain);
+                gain.connect(audioCtx.destination);
+
                 source.connect(analyser);
-                analyser.connect(audioCtx.destination);
                 //let frequencyArray = new Uint8Array(bufferLength);
                 const getData = () => {
                     analyser.fftSize = 2048;
@@ -29,6 +32,10 @@ const useAudioAnalizer = () => {
                     window.requestAnimationFrame(getData);
                 }
                 getData();
+                return () => {
+                    source.disconnect(analyser);
+                    gain.disconnect(audioCtx.destination);
+                }
             }
         }
         , [setTimeDomain, audioRef]
