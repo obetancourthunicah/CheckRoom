@@ -15,7 +15,7 @@ const initializeAudioClassifier = async () => {
             "https://storage.googleapis.com/mediapipe-models/audio_classifier/yamnet/float32/1/yamnet.tflite"
         },
         maxResults: 10,
-        categoryDenylist: ["Silence"],
+        //categoryDenylist: ["Silence"],
       });
 }
 
